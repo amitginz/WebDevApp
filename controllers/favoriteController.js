@@ -1,23 +1,20 @@
 const favoriteService = require("../services/favoriteService");
 
+
 class FavoriteController {
     async showPage(req, res) {
         try {
-            // שליפת המועדפים מהדאטה-בייס
+            // וודא ש-req.session.user קיים (מנוהל ע"י sessionMiddleware) [cite: 239]
             const favorites = await favoriteService.getByUser(req.session.user.id);
-
-            // רינדור הדף עם המפתח מה-ENV
             res.render("youtube", {
-                favorites: favorites,
+                favorites,
                 user: req.session.user,
-                apiKey: process.env.YOUTUBE_API_KEY // וודא ש-dotenv טעון ב-app.js
+                apiKey: process.env.YOUTUBE_API_KEY
             });
         } catch (err) {
-            console.error(err);
-            res.status(500).send("Error loading favorites");
+            res.status(500).send("שגיאה בטעינת המועדפים");
         }
     }
-    // ... שאר הפונקציות
 }
 
 module.exports = new FavoriteController();

@@ -1,4 +1,8 @@
-require('dotenv').config(); // חייב להיות בשורה הראשונה
+// app.js
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+// שאר הקוד...
 const express = require("express");
 const path = require("path");
 const sessionMiddleware = require("./config/session");
