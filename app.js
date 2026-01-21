@@ -1,3 +1,4 @@
+require('dotenv').config(); // חייב להיות בשורה הראשונה
 const express = require("express");
 const path = require("path");
 const sessionMiddleware = require("./config/session");
